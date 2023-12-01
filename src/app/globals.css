@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -15,7 +15,7 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
+*/
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -24,4 +24,17 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  background-color: #f2f2f2;
+}
+
+.appartment-details > div:nth-child(odd) {
+  @apply text-lg   font-semibold;
+}
+.appartment-details > div:nth-child(even) {
+  @apply mb-4;
+}
+
+td:first-child,
+th:first-child {
+  @apply px-2;
 }
