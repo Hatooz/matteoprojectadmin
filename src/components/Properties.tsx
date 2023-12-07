@@ -1,11 +1,12 @@
 "use client";
-import { updatePropertyRule } from "@/actions/actions";
+import { searchWithFilters, updatePropertyRule } from "@/actions/actions";
 import { PropertyDTO, QueueRuleDTO } from "@/models/models";
 import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { startTransition, useOptimistic, useState } from "react";
+import Toggle from "./toggle/Toggle";
 
 export default function Properties({
   serverProperties,
@@ -54,8 +55,91 @@ export default function Properties({
     }
   );
 
+  const filters: string[] = [];
+  const updateFilters = (value: string | null) => {
+    if (value && filters.includes(value)) {
+      filters.splice(filters.indexOf(value), 1);
+    } else if (value) {
+      filters.push(value);
+    }
+    console.log(filters);
+  };
+
+  const handleSearch = async (formData: FormData) => {
+    const searchString = formData.get("searchString") as string;
+    const res = await searchWithFilters(
+      searchString,
+      filters.includes("includeRules"),
+      filters.includes("includeAddress"),
+      filters.includes("includeHasAdvert"),
+      filters.includes("includeObjectNumber"),
+      filters.includes("includeLmNumber")
+    );
+
+    console.log(res);
+    setProperties(res);
+  };
+
   return (
     <>
+      <form
+        action={handleSearch}
+        className="w-full mb-4 grid grid-cols-[19fr_1fr]"
+      >
+        <input
+          type="text"
+          placeholder="Sök..."
+          name="searchString"
+          className="w-full border border-riksbyggenGray p-2 rounded-l-lg"
+        />{" "}
+        <input
+          type="submit"
+          value="Sök"
+          className="bg-riksbyggenGray rounded-r-lg text-white"
+        />
+        <div className="mt-2 col-span-2 p-2 rounded-lg border-riksbyggenGray">
+          <div className="mt-2 text-xl">Sökfilter</div>
+          <div>
+            <ul className="grid grid-cols-5">
+              <li>
+                <Toggle
+                  label="Sökregel"
+                  value="includeRules"
+                  callback={(e) => updateFilters(e.target.value)}
+                />
+              </li>
+              <li>
+                <Toggle
+                  label="Adress"
+                  value="includeAddress"
+                  callback={(e) => updateFilters(e.target.value)}
+                />
+              </li>
+              <li>
+                <Toggle
+                  label="Objektnummer"
+                  value="includeObjectNumber"
+                  callback={(e) => updateFilters(e.target.value)}
+                />
+              </li>
+              <li>
+                <Toggle
+                  label="LM nummer"
+                  value="includeLmNumber"
+                  callback={(e) => updateFilters(e.target.value)}
+                />
+              </li>
+              <li>
+                <Toggle
+                  label="Annonserad"
+                  value="includeHasAdvert"
+                  callback={(e) => updateFilters(e.target.value)}
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </form>
       <table className="w-full text-left border-riksbdar">
         <thead className="bg-riksbyggenDarkGray  text-white h-12">
           <tr>
@@ -68,7 +152,7 @@ export default function Properties({
           </tr>
         </thead>
         <tbody>
-          {optimisticProperties.map((property: PropertyDTO) => {
+          {properties.map((property: PropertyDTO) => {
             return (
               <tr
                 key={property.id}

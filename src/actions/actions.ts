@@ -83,3 +83,83 @@ export const updateAppartmentRule = async (
 
   return await getAppartmentByProperty(propId);
 };
+
+export const addAdvert = async (
+  appartmentId: string,
+  advertText: string,
+  rentalDate?: string
+) => {
+  await fetch(`http://localhost:5039/api/advert`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-cache",
+    body: JSON.stringify({ appartmentId, advertText, rentalDate }),
+  });
+};
+export const updateAdvert = async (
+  advertId: string,
+  advertText: string,
+  rentalDate?: string
+) => {
+  await fetch(`http://localhost:5039/api/advert/${advertId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-cache",
+    body: JSON.stringify({ advertText, rentalDate }),
+  });
+};
+
+export const deleteAdvert = async (advertId: string) => {
+  await fetch(`http://localhost:5039/api/advert/${advertId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-cache",
+  });
+};
+
+export const searchWithFilters = async (
+  searchString?: string,
+  includeRules?: boolean,
+  includeAddress?: boolean,
+  includeHasAdvert?: boolean,
+  includeObjectNumber?: boolean,
+  includeLmNumber?: boolean
+) => {
+  let queryString = `searchString=${searchString}`;
+
+  if (includeRules) {
+    queryString += `&includeRules=${includeRules}`;
+  }
+  if (includeAddress) {
+    queryString += `&includeAddress=${includeAddress}`;
+  }
+  if (includeObjectNumber) {
+    queryString += `&includeObjectNumber=${includeObjectNumber}`;
+  }
+  if (includeLmNumber) {
+    queryString += `&includeLmNumber=${includeLmNumber}`;
+  }
+  if (includeHasAdvert) {
+    queryString += `&includeHasAdvert=${includeHasAdvert}`;
+  }
+
+  if (!searchString) {
+    return await getAllProperties();
+  }
+
+  return await (
+    await fetch(`http://localhost:5039/api/search?${queryString}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-cache",
+    })
+  ).json();
+};

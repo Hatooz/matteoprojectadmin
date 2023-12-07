@@ -110,7 +110,7 @@ export default function Page({ params }: { params: { id: string } }) {
                         position: "absolute",
                       }}
                     >
-                      Har utannonserad lägenhet
+                      Lägenhet är annonserad
                     </div>
                   )}
                   {ap.advert !== null && (
