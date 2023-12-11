@@ -2,7 +2,7 @@
 
 export const getAllProperties = async () => {
   return await (
-    await fetch("${process.env.BASE_URL}/property", {
+    await fetch(`${process.env.BASE_URL}/property`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -12,7 +12,7 @@ export const getAllProperties = async () => {
 };
 export const getAllRules = async () => {
   return await (
-    await fetch("${process.env.BASE_URL}/queuerule", {
+    await fetch(`${process.env.BASE_URL}/queuerule`, {
       headers: {
         "Content-Type": "application/json",
       },
