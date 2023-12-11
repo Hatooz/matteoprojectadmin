@@ -11,7 +11,6 @@ import { startTransition, useEffect, useRef, useState } from "react";
 
 export default function Appartment({ params }: { params: { apId: string } }) {
   const [appartment, setAppartment] = useState<AppartmentDTO>();
-  const [showAddAdvertModal, setshowAddAdvertModal] = useState(false);
   const [rerender, setRerender] = useState(false);
   const router = useRouter();
 

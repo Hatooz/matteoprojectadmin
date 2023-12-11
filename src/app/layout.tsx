@@ -18,16 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <div className="h-screen grid items-center p-20"> */}
-        {/* <div className="border border-tailwindLightBlue h-full rounded-lg w-full m-auto items-center relative"> */}
-        {/* <div className="bg-tailwindLightBlue absolute top-0 left-0 right-0 h-12 p-2 text-2xl font-semibold">
-            Admin
-          </div> */}
         <Navbar />
         <div className=" mt-16 w-5/6 m-auto">{children}</div>
-
-        {/* </div> */}
-        {/* </div> */}
       </body>
     </html>
   );
