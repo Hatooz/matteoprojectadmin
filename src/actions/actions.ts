@@ -1,18 +1,20 @@
 "use server";
 
 export const getAllProperties = async () => {
-  return await (
-    await fetch(`${process.env.BASE_URL}/property`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      cache: "no-cache",
-    })
-  ).json();
+  const response = await fetch(`${process.env.BASE_URL}/api/property`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-cache",
+  });
+
+  const body = await response.json();
+  return body;
 };
+
 export const getAllRules = async () => {
   return await (
-    await fetch(`${process.env.BASE_URL}/queuerule`, {
+    await fetch(`${process.env.BASE_URL}/api/queuerule`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -23,7 +25,7 @@ export const getAllRules = async () => {
 
 export const getAppartmentByProperty = async (propertyId: string) => {
   const propResponse = await fetch(
-    `${process.env.BASE_URL}/appartment/byproperty/${propertyId}`,
+    `${process.env.BASE_URL}/api/appartment/byproperty/${propertyId}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +39,7 @@ export const getAppartmentByProperty = async (propertyId: string) => {
 
 export const getAppartmentById = async (appartmentId: string) => {
   const appartmentResponse = await fetch(
-    `${process.env.BASE_URL}/appartment/${appartmentId}`,
+    `${process.env.BASE_URL}/api/appartment/${appartmentId}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +56,7 @@ export const updatePropertyRule = async (
   ruleId: string
 ) => {
   console.log("updating property rule");
-  await fetch(`${process.env.BASE_URL}/property/${propertyId}`, {
+  await fetch(`${process.env.BASE_URL}/api/property/${propertyId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -72,7 +74,7 @@ export const updateAppartmentRule = async (
   propId: string
 ) => {
   console.log("updating property rule");
-  await fetch(`${process.env.BASE_URL}/appartment/${appartmentId}`, {
+  await fetch(`${process.env.BASE_URL}/api/appartment/${appartmentId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -89,7 +91,7 @@ export const addAdvert = async (
   advertText: string,
   rentalDate?: string
 ) => {
-  await fetch(`${process.env.BASE_URL}/advert`, {
+  await fetch(`${process.env.BASE_URL}/api/advert`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -103,7 +105,7 @@ export const updateAdvert = async (
   advertText: string,
   rentalDate?: string
 ) => {
-  await fetch(`${process.env.BASE_URL}/advert/${advertId}`, {
+  await fetch(`${process.env.BASE_URL}/api/advert/${advertId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -114,7 +116,7 @@ export const updateAdvert = async (
 };
 
 export const deleteAdvert = async (advertId: string) => {
-  await fetch(`${process.env.BASE_URL}/advert/${advertId}`, {
+  await fetch(`${process.env.BASE_URL}/api/advert/${advertId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -154,7 +156,7 @@ export const searchWithFilters = async (
   }
 
   return await (
-    await fetch(`${process.env.BASE_URL}/search?${queryString}`, {
+    await fetch(`${process.env.BASE_URL}/api/search?${queryString}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
