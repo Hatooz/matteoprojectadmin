@@ -2,7 +2,7 @@
 
 export const getAllProperties = async () => {
   return await (
-    await fetch("http://localhost:5039/api/property", {
+    await fetch("${process.env.BASE_URL}/property", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -12,7 +12,7 @@ export const getAllProperties = async () => {
 };
 export const getAllRules = async () => {
   return await (
-    await fetch("http://localhost:5039/api/queuerule", {
+    await fetch("${process.env.BASE_URL}/queuerule", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -23,7 +23,7 @@ export const getAllRules = async () => {
 
 export const getAppartmentByProperty = async (propertyId: string) => {
   const propResponse = await fetch(
-    `http://localhost:5039/api/appartment/byproperty/${propertyId}`,
+    `${process.env.BASE_URL}/appartment/byproperty/${propertyId}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export const getAppartmentByProperty = async (propertyId: string) => {
 
 export const getAppartmentById = async (appartmentId: string) => {
   const appartmentResponse = await fetch(
-    `http://localhost:5039/api/appartment/${appartmentId}`,
+    `${process.env.BASE_URL}/appartment/${appartmentId}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export const updatePropertyRule = async (
   ruleId: string
 ) => {
   console.log("updating property rule");
-  await fetch(`http://localhost:5039/api/property/${propertyId}`, {
+  await fetch(`${process.env.BASE_URL}/property/${propertyId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export const updateAppartmentRule = async (
   propId: string
 ) => {
   console.log("updating property rule");
-  await fetch(`http://localhost:5039/api/appartment/${appartmentId}`, {
+  await fetch(`${process.env.BASE_URL}/appartment/${appartmentId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -89,7 +89,7 @@ export const addAdvert = async (
   advertText: string,
   rentalDate?: string
 ) => {
-  await fetch(`http://localhost:5039/api/advert`, {
+  await fetch(`${process.env.BASE_URL}/advert`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -103,7 +103,7 @@ export const updateAdvert = async (
   advertText: string,
   rentalDate?: string
 ) => {
-  await fetch(`http://localhost:5039/api/advert/${advertId}`, {
+  await fetch(`${process.env.BASE_URL}/advert/${advertId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -114,7 +114,7 @@ export const updateAdvert = async (
 };
 
 export const deleteAdvert = async (advertId: string) => {
-  await fetch(`http://localhost:5039/api/advert/${advertId}`, {
+  await fetch(`${process.env.BASE_URL}/advert/${advertId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -154,7 +154,7 @@ export const searchWithFilters = async (
   }
 
   return await (
-    await fetch(`http://localhost:5039/api/search?${queryString}`, {
+    await fetch(`${process.env.BASE_URL}/search?${queryString}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
